@@ -1,12 +1,10 @@
 package com.jangir.ecom.ecommerce.controllers;
+import com.jangir.ecom.ecommerce.dtos.GenericProductDto;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.jangir.ecom.ecommerce.services.ProductService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/products")
@@ -20,12 +18,27 @@ public class ProductController {
 	}
 
     @GetMapping("{id}")
-	public String getProductById(@PathVariable("id") Long id) {
+	public GenericProductDto getProductById(@PathVariable("id") Long id) {
 		return this.productService.getProductById(id);
 	}
 
-	@GetMapping("/hello")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-      return String.format("Hello %s!", name);
-    }
+	@GetMapping
+	public List<GenericProductDto> getAllProducts() {
+		return this.productService.getAllProducts();
+	}
+
+	@PostMapping
+	public GenericProductDto createProduct(@RequestBody GenericProductDto product) {
+		return this.productService.createProduct(product);
+	}
+
+	@DeleteMapping("{id}")
+	public GenericProductDto deleteProduct(@PathVariable("id") Long id) {
+		return productService.deleteProduct(id);
+	}
+
+	@PutMapping("{id}")
+	public GenericProductDto updateProduct(@PathVariable("id") Long id, @RequestBody GenericProductDto product) {
+		return productService.updateProduct(id, product);
+	}
 }
