@@ -1,5 +1,6 @@
 package com.jangir.ecom.ecommerce.controllers;
 import com.jangir.ecom.ecommerce.dtos.GenericProductDto;
+import com.jangir.ecom.ecommerce.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,13 +13,12 @@ import java.util.List;
 public class ProductController {
 
     ProductService productService;
-	
 	public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
 		this.productService = productService;
 	}
 
     @GetMapping("{id}")
-	public GenericProductDto getProductById(@PathVariable("id") Long id) {
+	public GenericProductDto getProductById(@PathVariable("id") Long id) throws NotFoundException {
 		return this.productService.getProductById(id);
 	}
 

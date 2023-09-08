@@ -1,6 +1,7 @@
 package com.jangir.ecom.ecommerce.services;
 import com.jangir.ecom.ecommerce.dtos.FakeStoreProductDto;
 import com.jangir.ecom.ecommerce.dtos.GenericProductDto;
+import com.jangir.ecom.ecommerce.exception.NotFoundException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -30,10 +31,13 @@ public class FakeStoreProductService implements ProductService {
     public  FakeStoreProductService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplateBuilder = restTemplateBuilder;
     }
-    public GenericProductDto getProductById(Long id) {
+    public GenericProductDto getProductById(Long id) throws NotFoundException {
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDto> response = restTemplate.getForEntity(specificProductRequestUrl, FakeStoreProductDto.class, id);
         FakeStoreProductDto fakeStoreProductDto = response.getBody();
+        if(fakeStoreProductDto == null) {
+            throw new NotFoundException("Product with id: "+id+" does not exist");
+        }
         return convertToGenericProductDto(fakeStoreProductDto);
     }
 

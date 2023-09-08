@@ -1,12 +1,13 @@
 package com.jangir.ecom.ecommerce.services;
 
 import com.jangir.ecom.ecommerce.dtos.GenericProductDto;
+import com.jangir.ecom.ecommerce.exception.NotFoundException;
 
 import java.util.List;
 
 public interface ProductService {
     // Product getProductById(Long id)
-    GenericProductDto getProductById(Long id);
+    GenericProductDto getProductById(Long id) throws NotFoundException;
 
     GenericProductDto createProduct(GenericProductDto product);
 
