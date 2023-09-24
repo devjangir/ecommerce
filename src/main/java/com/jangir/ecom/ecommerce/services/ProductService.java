@@ -1,9 +1,11 @@
 package com.jangir.ecom.ecommerce.services;
 
+import com.jangir.ecom.ecommerce.dtos.CategoryDto;
 import com.jangir.ecom.ecommerce.dtos.GenericProductDto;
 import com.jangir.ecom.ecommerce.exception.NotFoundException;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface ProductService {
     // Product getProductById(Long id)

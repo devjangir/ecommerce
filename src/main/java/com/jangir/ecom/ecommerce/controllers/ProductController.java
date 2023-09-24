@@ -13,7 +13,7 @@ import java.util.List;
 public class ProductController {
 
     ProductService productService;
-	public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
+	public ProductController(@Qualifier("dBStoreProductService") ProductService productService) {
 		this.productService = productService;
 	}
 

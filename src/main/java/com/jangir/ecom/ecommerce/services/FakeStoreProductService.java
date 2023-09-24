@@ -1,4 +1,5 @@
 package com.jangir.ecom.ecommerce.services;
+import com.jangir.ecom.ecommerce.dtos.CategoryDto;
 import com.jangir.ecom.ecommerce.dtos.FakeStoreProductDto;
 import com.jangir.ecom.ecommerce.dtos.GenericProductDto;
 import com.jangir.ecom.ecommerce.exception.NotFoundException;
@@ -11,6 +12,7 @@ import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService {
@@ -31,6 +33,8 @@ public class FakeStoreProductService implements ProductService {
     public  FakeStoreProductService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplateBuilder = restTemplateBuilder;
     }
+
+
     public GenericProductDto getProductById(Long id) throws NotFoundException {
         RestTemplate restTemplate = restTemplateBuilder.build();
         ResponseEntity<FakeStoreProductDto> response = restTemplate.getForEntity(specificProductRequestUrl, FakeStoreProductDto.class, id);
