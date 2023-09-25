@@ -74,6 +74,19 @@ public class DBStoreProductService implements ProductService {
 
     @Override
     public GenericProductDto deleteProduct(Long id) {
+        Optional<Product> product = productRepository.findById(id);
+        if(product.isPresent()) {
+            Product p = product.get();
+            GenericProductDto productDTO = new GenericProductDto();
+            productDTO.setId(id);
+            productDTO.setTitle(p.getTitle());
+            productDTO.setDescription(p.getDescription());
+            productDTO.setImage(p.getImage());
+            productDTO.setCategory(p.getCategory().getName());
+            productDTO.setPrice(p.getPrice());
+            productRepository.deleteById(id);
+            return productDTO;
+        }
         return null;
     }
 
